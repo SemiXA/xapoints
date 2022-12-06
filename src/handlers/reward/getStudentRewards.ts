@@ -1,7 +1,7 @@
-import {Reward} from "../../model/types/reward";
+import {Reward} from "../../model/types/reward.js";
 import express from "express";
-import { findRewardsReceivedFromStudent, findRewardsSentFromStudent} from "../../model/services/rewardServices";
-import { findOneStudent, findAllStudents} from "../../model/services/studentServices";
+import { findRewardsReceivedFromStudent, findRewardsSentFromStudent} from "../../model/services/rewardServices.js";
+import { findOneStudent, findAllStudents} from "../../model/services/studentServices.js";
 
 
 
