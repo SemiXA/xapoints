@@ -20,6 +20,7 @@ function userValidation(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield axios_1.default.get(`http://localhost:3000/users/${req.body.email}`);
         if (result.data) {
+            console.log(result.data);
             const user = result.data;
             if (yield bcrypt_1.default.compare(req.body.password, user.password)) {
                 const token = jsonwebtoken_1.default.sign({ "email": user.email, "role": user.role }, process.env.SESSION_SECRET);

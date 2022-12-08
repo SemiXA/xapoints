@@ -30,12 +30,13 @@ exports.findOneUser = findOneUser;
 ;
 function insertOneUser(user, callback) {
     return __awaiter(this, void 0, void 0, function* () {
-        const queryString = "INSERT INTO user(email, password, role, createdAt) VALUES(?, ?, ?, NOW())";
+        const queryString = "INSERT INTO user(email, password, role, created_at) VALUES(?, ?, ?, NOW())";
         const hashPassword = yield bcrypt_1.default.hash(user.password, 10);
         config_1.db.query(queryString, [user.email, hashPassword, user.role], (err, result) => {
             if (err) {
                 callback(err, null);
             }
+            console.log(result, err);
             const userId = result.insertId;
             callback(null, userId);
         });

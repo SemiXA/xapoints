@@ -33,8 +33,8 @@ function findAllStudents() {
     return __awaiter(this, void 0, void 0, function* () {
         const queryString = "SELECT id, name, first_surname, second_surname, email_personal, email_activa, phone_number, zip_code FROM student";
         const connection = yield promise_1.default.createConnection(config_2.connectionData);
-        const studentsFound = yield connection.execute(queryString);
-        return studentsFound;
+        const result = yield connection.execute(queryString);
+        return result[0];
     });
 }
 exports.findAllStudents = findAllStudents;
@@ -42,8 +42,8 @@ function findOneStudent(IDUser) {
     return __awaiter(this, void 0, void 0, function* () {
         const queryString = "SELECT id, name, first_surname, second_surname, email_personal, email_activa, phone_number, zip_code, prom, activa_points_balance FROM student WHERE id = ?";
         const connection = yield promise_1.default.createConnection(config_2.connectionData);
-        const rewardsReceived = yield connection.execute(queryString, [IDUser]);
-        return rewardsReceived;
+        const result = yield connection.execute(queryString, [IDUser]);
+        return result[0][0];
     });
 }
 exports.findOneStudent = findOneStudent;

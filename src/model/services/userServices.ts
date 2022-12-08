@@ -17,12 +17,14 @@ function findOneUser(user_email: string, callback: Function){
   };
 
 async function insertOneUser(user: User, callback: Function){
-      const queryString = "INSERT INTO user(email, password, role, createdAt) VALUES(?, ?, ?, NOW())";
+      const queryString = "INSERT INTO user(email, password, role, created_at) VALUES(?, ?, ?, NOW())";
       const hashPassword = await bcrypt.hash(user.password, 10);
       db.query(queryString, [user.email, hashPassword, user.role], (err, result)=>{
         if (err) {
           callback(err, null);
         }
+        console.log(result, err);
+        
         const userId = (<OkPacket> result).insertId;
         callback(null, userId);
       });

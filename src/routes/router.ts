@@ -11,6 +11,7 @@ import { userValidation } from '../handlers/log/logUser';
 import { validateToken } from '../utils/validateToken.js';
 import { userIsAdmin } from '../utils/userIsAdmin.js';
 import { getOneUser } from '../handlers/user/getOneUser';
+import { insertReward } from '../handlers/reward/insertReward';
 
 
 
@@ -44,6 +45,8 @@ router.post("/logUser", userValidation);
 
 
 router.get("/points", getStudentRewards, getStudents);
+
+router.post("/sendReward", insertReward);
 
 
 
