@@ -4,25 +4,22 @@ import { findRewardsReceivedFromStudent, findRewardsSentFromStudent, findRewards
 import { findOneStudent, findAllStudents} from "../../model/services/studentServices.js";
 import { insertOneUser } from "../../model/services/userServices.js";
 import { User } from "../../model/types/user.js";
+import jsonwebtoken from 'jsonwebtoken';
 
 
 
 
 export async function getStudentRewards(req: express.Request, res: express.Response){
     try{
-    const studentId = "1";
+    const token = req.session.token as string;
+    const studentIdecoded = jsonwebtoken.decode(token, {json: true});
+    const studentId = studentIdecoded?.id;
+
     const studentSentRewards = await findRewardsSentFromStudent(studentId);
     const studentReceivedRewards = await findRewardsReceivedFromStudent(studentId);
     const showPointsFromStudent = await  findOneStudent(studentId);
     const getStudents = await findAllStudents();
     const lastRewards = await findRewardsSortedByDate();
-    
-    
-    
-    
-    //const insertStudent = await insertOneUser({"id": 3,"email":"juan@toni.com","password": "12345","role": "Student"},()=>{})
-    //console.log(studentSentRewards);
-    
     
     res.status(200).render("pages/points",
       
