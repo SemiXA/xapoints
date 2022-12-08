@@ -34,16 +34,20 @@
     <div id="divPiechart">
       <div class="color">
         <div class="piechart1">
-          <div id="numberpie1"><%= showPointsFromStudent[0][0].activa_points_balance %> </div>
+          <div id="numberpie1">
+            <%= showPointsFromStudent.activa_points_balance %>
+          </div>
         </div>
         <p class="pieText">DISPONIBLES<br> ¡Listos para enviar!</p>
       </div>
       <div>
-        <!--<%- include('../partials/piechartreceived'); %> -->
         <div class="piechart2">
-          <div id="numberpie2"><%= studentReceivedRewards[0][0].points %></div>
+          <div id="numberpie2">
+            <%= studentReceivedRewards.points %>
+          </div>
         </div>
-        <p class="pieText">TOTAL<br> <span id="sendText"> <a id="sentPoints" href="#">Enviados</a></span> | <span id="receibedText"> <a id="receivedPoints" href="#">Recibidos</a></span>
+        <p class="pieText">TOTAL<br> <span id="sendText"> <a id="sentPoints" href="#">Enviados</a></span> | <span
+            id="receibedText"> <a id="receivedPoints" href="#">Recibidos</a></span>
         </p>
       </div>
     </div>
@@ -53,22 +57,32 @@
     <hr />
     <div id="fondo">
       <p class="center">Alumnos Xarxatec Activa 2023</p>
+      <form action="/sendReward" method="post">
       <div class="search">
+
         <img id="iconActiva" src="img/puntos-activa-logo.svg" alt="logoBuscarGente">
-        <select name="getStudents" id="alumnos" >
-            <% for(var i = 0; i < getStudents.length; i++) { %>
-              <option value='<%= getStudents[0][i].name %>'><%= getStudents[0][i].name %> <%= getStudents[0][i].first_surname %></option>
-            <% } %>
-        </select>
+        
+          <select name="getStudents" id="alumnos">
+            <% for(var i=0; i < getStudents.length; i++) { %>
+              <option value='<%= getStudents[i].name %>' id="<%= getStudents[i].id %>">
+                <%= getStudents[i].name %>
+                  <%= getStudents[i].first_surname %>
+              </option>
+              <% } %>
+          </select>
       </div>
+
+
       <div class="spanCenter">Descripción del envío</div>
-      <form action="#">
-        <div id="textContainerDescription">
-          <input id="sendDescription" type="text"></div>
-        <div class="spanCenter">¿cuánto envías?</div>
-        <div id="numberContainerqty">
-          <input id="pointQty" type="number">
-          <button id="sendPoints">ENVIAR</button></div>
+      <div id="textContainerDescription">
+        <input id="sendDescription" type="text">
+      </div>
+      <div class="spanCenter">¿cuánto envías?</div>
+      <div id="numberContainerqty">
+        <input id="pointQty" type="number">
+        <input type="hidden" id="senderId" value="<%= studentId %>">
+        <button type="submit" id="sendPoints">ENVIAR</button>
+      </div>
       </form>
     </div>
   </div>
@@ -81,50 +95,77 @@
         <button id="receivedButton">RECIBIDOS</a></button>
     </div>
     <div class="pAlign">
-      <div><span class="pointsRed"><b>100</b></span> PUNTOS ENVIADOS
-        30/07/2023</div>
-      <p> Bieeen que hemos ganado el premio de no code. Sin tu cerebrito
-        esto no habría sido posible. Un abrazo! </p>
-      <p> de parte de <b>Madonna Giménez</b></p>
+      <div><span class="pointsRed"><b>
+            <%= lastRewards[0].xp_points %>
+          </b></span> PUNTOS ENVIADOS
+        <%= lastRewards[0].date.getDate()%>/<%=lastRewards[0].date.getUTCMonth() +1%>/
+            <%=lastRewards[0].date.getFullYear() %>
+      </div>
+      <p>
+        <%= lastRewards[0].description %>
+      </p>
+      <p> de parte de <b>
+          <%= lastRewards[0].name %>
+        </b></p>
     </div>
     <hr id="hrHistory" />
     <div class="pAlign">
-      <div><span class="pointsRed"><b>20</b></span> PUNTOS ENVIADOS
-        30/09/2023</div>
+      <div><span class="pointsRed"><b>
+            <%= lastRewards[1].xp_points %>
+          </b></span> PUNTOS ENVIADOS
+        <%= lastRewards[1].date.getDate()%>/<%=lastRewards[1].date.getUTCMonth() +1%>/
+            <%=lastRewards[1].date.getFullYear() %>
+      </div>
       <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu cerebrito
-      esto no habría sido posible. Un abrazo!<br>
-      <p>de parte de <b>Miguel Sueca</b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>30</b></span> PUNTOS ENVIADOS
-        30/11/2023</div>
-      <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu paciencia
-      esto no habría sido posible. Un abrazo!<br>
-      <p> de parte de <b>Pedro sanchez</b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>90</b></span> PUNTOS ENVIADOS
-        30/11/2023</div>
-      <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu mirada
-      esto no habría sido posible. Un abrazo!<br>
-      <p> de parte de <b>M. Rajoy </b>
+      <%= lastRewards[1].description %><br>
+        <p>de parte de <b>
+            <%= lastRewards[1].name %>
+          </b>
     </div>
     </p>
     <hr id="hrHistory" />
     <div class="pAlign">
-      <div><span class="pointsRed"><b>60</b></span> PUNTOS ENVIADOS
-        30/11/2023</div>
+      <div><span class="pointsRed"><b>
+            <%= lastRewards[2].xp_points %>
+          </b></span> PUNTOS ENVIADOS
+        <%= lastRewards[2].date.getDate()%>/<%=lastRewards[2].date.getUTCMonth()+1%>/
+            <%=lastRewards[2].date.getFullYear() %>
+      </div>
       <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu cabeza
-      esto no habría sido posible. Un abrazo!<br>
-      <p> de parte de <b>Metallica</b>
+      <%= lastRewards[2].description %><br>
+        <p> de parte de <b>
+            <%= lastRewards[2].name %>
+          </b>
+    </div>
+    </p>
+    <hr id="hrHistory" />
+    <div class="pAlign">
+      <div><span class="pointsRed"><b>
+            <%= lastRewards[3].xp_points %>
+          </b></span> PUNTOS ENVIADOS
+        <%= lastRewards[3].date.getDate()%>/<%=lastRewards[3].date.getUTCMonth()+1%>/
+            <%=lastRewards[3].date.getFullYear() %>
+      </div>
+      <br>
+      <%= lastRewards[3].description %><br>
+        <p> de parte de <b>
+            <%= lastRewards[3].name %>
+          </b>
+    </div>
+    </p>
+    <hr id="hrHistory" />
+    <div class="pAlign">
+      <div><span class="pointsRed"><b>
+            <%= lastRewards[4].xp_points %>
+          </b></span> PUNTOS ENVIADOS
+        <%= lastRewards[4].date.getDate()%>/<%=lastRewards[4].date.getUTCMonth()+1%>/
+            <%=lastRewards[4].date.getFullYear() %>
+      </div>
+      <br>
+      <%= lastRewards[4].description %><br>
+        <p> de parte de <b>
+            <%= lastRewards[4].name %>
+          </b>
     </div>
     </p>
     <br><br><br><br>
@@ -133,17 +174,17 @@
     const numpie = document.getElementById("numberpie2");
     const receivedPoints = document.getElementById("receivedPoints");
     const sentPoints = document.getElementById("sentPoints");
-    
-    
-    function receivedSentRewards (e){
-        if(e.target.innerText == "Recibidos") numpie.innerHTML = `<%= studentReceivedRewards[0][0].points %>`;
-        if(e.target.innerText == "Enviados") numpie.innerHTML = `<%= studentSentRewards[0][0].points %>`;
+
+
+    function receivedSentRewards(e) {
+      if (e.target.innerText == "Recibidos") numpie.innerHTML = `<%= studentReceivedRewards.points %>`;
+      if (e.target.innerText == "Enviados") numpie.innerHTML = `<%= studentSentRewards.points %>`;
     }
-    
+
     receivedPoints.addEventListener("click", receivedSentRewards);
     sentPoints.addEventListener("click", receivedSentRewards);
-    </script>
-    
+  </script>
+
 </body>
 
 </html>

@@ -1,7 +1,10 @@
 import {Reward} from "../../model/types/reward.js";
 import express from "express";
-import { findRewardsReceivedFromStudent, findRewardsSentFromStudent} from "../../model/services/rewardServices.js";
+import { findRewardsReceivedFromStudent, findRewardsSentFromStudent, findRewardsSortedByDate} from "../../model/services/rewardServices.js";
 import { findOneStudent, findAllStudents} from "../../model/services/studentServices.js";
+import { insertOneUser } from "../../model/services/userServices.js";
+import { User } from "../../model/types/user.js";
+
 
 
 
@@ -12,13 +15,23 @@ export async function getStudentRewards(req: express.Request, res: express.Respo
     const studentReceivedRewards = await findRewardsReceivedFromStudent(studentId);
     const showPointsFromStudent = await  findOneStudent(studentId);
     const getStudents = await findAllStudents();
+    const lastRewards = await findRewardsSortedByDate();
+    
+    
+    
+    
+    //const insertStudent = await insertOneUser({"id": 3,"email":"juan@toni.com","password": "12345","role": "Student"},()=>{})
+    //console.log(studentSentRewards);
+    
     
     res.status(200).render("pages/points",
       
         {studentSentRewards,
         studentReceivedRewards,
         showPointsFromStudent,
-        getStudents
+        getStudents,
+        lastRewards,
+        studentId
         })
         
         

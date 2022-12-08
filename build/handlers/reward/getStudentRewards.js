@@ -20,10 +20,15 @@ function getStudentRewards(req, res) {
             const studentReceivedRewards = yield (0, rewardServices_js_1.findRewardsReceivedFromStudent)(studentId);
             const showPointsFromStudent = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const getStudents = yield (0, studentServices_js_1.findAllStudents)();
+            const lastRewards = yield (0, rewardServices_js_1.findRewardsSortedByDate)();
+            //const insertStudent = await insertOneUser({"id": 3,"email":"juan@toni.com","password": "12345","role": "Student"},()=>{})
+            //console.log(studentSentRewards);
             res.status(200).render("pages/points", { studentSentRewards,
                 studentReceivedRewards,
                 showPointsFromStudent,
-                getStudents
+                getStudents,
+                lastRewards,
+                studentId
             });
         }
         catch (error) {

@@ -10,6 +10,8 @@ async function userValidation(req: express.Request, res: express.Response){
 
         const result = await axios.get(`http://localhost:3000/users/${req.body.email}`);
         if (result.data){
+            console.log(result.data);
+            
             const user: User = result.data;
             if (await bcrypt.compare(req.body.password, user.password)){
                 const token = jsonwebtoken.sign({"email": user.email, "role": user.role}, process.env.SESSION_SECRET!)

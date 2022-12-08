@@ -23,16 +23,16 @@ async function findAllStudents(){
   const queryString = "SELECT id, name, first_surname, second_surname, email_personal, email_activa, phone_number, zip_code FROM student";
 
   const connection = await mysqlPromise.createConnection(connectionData);
-  const studentsFound = await connection.execute(queryString);
-  return  studentsFound;
+  const result = await connection.execute(queryString);
+  return (<RowDataPacket>result)[0];
 }
 
 async function findOneStudent(IDUser: string){
  
   const queryString = "SELECT id, name, first_surname, second_surname, email_personal, email_activa, phone_number, zip_code, prom, activa_points_balance FROM student WHERE id = ?";
   const connection = await mysqlPromise.createConnection(connectionData);
-  const rewardsReceived = await connection.execute(queryString, [IDUser]);
-  return rewardsReceived;
+  const result = await connection.execute(queryString, [IDUser]);
+  return (<RowDataPacket>result)[0][0];
   }
 
 
