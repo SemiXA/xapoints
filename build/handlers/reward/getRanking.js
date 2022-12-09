@@ -9,20 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneStudent = void 0;
-const studentServices_1 = require("../../model/services/studentServices");
-function getOneStudent(req, res) {
+exports.getRankingList = void 0;
+const rewardServices_1 = require("../../model/services/rewardServices");
+function getRankingList(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const studentId = "1";
-            const studentFound = yield (0, studentServices_1.findOneStudent)(studentId);
-            return res.status(200).send(studentFound);
-            {
-            }
+            const ranking = yield (0, rewardServices_1.findRankingMaxFive)();
+            console.log({ ranking });
+            res.status(200).render("pages/ranking", { ranking });
         }
         catch (error) {
-            return res.status(404).json({ "message": "not found" });
+            res.status(404).json({ "message": "not found" });
         }
     });
 }
-exports.getOneStudent = getOneStudent;
+exports.getRankingList = getRankingList;

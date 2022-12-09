@@ -1,10 +1,9 @@
-import {db} from "../../config.js";
 import { User } from "../../model/types/user.js";
 import express from 'express';
 import axios from "axios";
 import bcrypt from 'bcrypt';
 import jsonwebtoken from 'jsonwebtoken';
-import dotenv from 'dotenv';
+
 
 async function userValidation(req: express.Request, res: express.Response){
 

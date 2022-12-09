@@ -32,41 +32,17 @@
         <div id="rankingColumn">
             <h1>RANKING</h1>
             <hr id="rankingTitle" />
-            <div class="rankingList1">
-                <p class="rankingPositionPodium item1">1</p>
-                <p class="item2">HOMER S.</p>
-                <p class="item3"><em class="red">TOCANDO EL CIELO</em></p>
-                <p class="item4"><span id="pointSize"><b>1250</b></span> PUNTOS ACTIVA</p>
-            </div>
-            <hr id="rankingHr" />
-            <div class="rankingList1">
-                <p class="rankingPositionPodium item1">2</p>
-                <p class="item2">KATY P.</p>
-                <p class="item3"><em class="red">EN LA CRESTA DE LA OLA</em></p>
-                <p class="item4"><span id="pointSize"><b>1250</b></span> PUNTOS ACTIVA</p>
-            </div>
-            <hr id="rankingHr" />
-            <div class="rankingList1">
-                <p class="rankingPositionPodium item1">3</p>
-                <p class="item2">BRITNEY S.</p>
-                <p class="item3"><em class="red">SABOREANDO EL PODIO</em></p>
-                <p class="item4"><span id="pointSize"><b>1250</b></span> PUNTOS ACTIVA</p>
-            </div>
-            <hr id="rankingHr" />
-            <div class="rankingList1">
-                <p class="rankingPositionPodium2 item1">4</p>
-                <p class="item2">MARIE C. </p>
-                <p class="item3"><em class="blue">FUTURO PROMETEDOR</em></p>
-                <p class="item4"><span id="pointSize"><b>1250</b></span> PUNTOS ACTIVA</p>
-            </div>
-            <hr id="rankingHr" />
-            <div class="rankingList1">
-                <p class="rankingPositionPodium2 item1">5</p>
-                <p class="item2">MARLON B.</p>
-                <p class="item3"><em class="blue">EN EL TOP 5</em></p>
-                <p class="item4"><span id="pointSize"><b>1250</b></span> PUNTOS ACTIVA</p>
-            </div>
-            <hr id="rankingHr" />
+            
+                <% for(var i=0; i < ranking.length; i++) { %>
+                    <div class="rankingList1">
+                        <p class="rankingPositionPodium item1"><%= i +1 %></p>
+                        <p class="item2"><%= ranking[i].name %></p>
+                        <p class="item3"><em class="red"></em></p>
+                        <p class="item4"><span id="pointSize"><b><%= ranking[i].points %></b></span> PUNTOS ACTIVA</p>
+                    </div>
+                    <hr id="rankingHr" />
+                    <% } %>
+            
         </div>
         <div>
             <div id="rankingCup">

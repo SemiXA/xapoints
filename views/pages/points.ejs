@@ -16,7 +16,7 @@
       <p class="red">Mis puntos</p>
     </div>
     <div class="menuFoot">
-      <a href="ranking.html"><img src="img/iconosMenu/ranking-gray.svg" alt="ranking"></a>
+      <a href="ranking"><img src="img/iconosMenu/ranking-gray.svg" alt="ranking"></a>
       <p>Ranking</p>
     </div>
     <div class="menuFoot">
@@ -47,7 +47,7 @@
           </div>
         </div>
         <p class="pieText">TOTAL<br> <span id="sendText"> <a id="sentPoints" href="#">Enviados</a></span> | <span
-            id="receibedText"> <a id="receivedPoints" href="#">Recibidos</a></span>
+            id="receivedText"> <a id="receivedPoints" href="#">Recibidos</a></span>
         </p>
       </div>
     </div>
@@ -62,11 +62,11 @@
 
         <img id="iconActiva" src="img/puntos-activa-logo.svg" alt="logoBuscarGente">
         
-          <select name="getStudents" id="alumnos">
+          <select name="idRewardedStudent" id="alumnos">
             <% for(var i=0; i < getStudents.length; i++) { %>
-              <option value='<%= getStudents[i].name %>' id="<%= getStudents[i].id %>">
+              <option value="<%= getStudents[i].id %>" id="<%= getStudents[i].id %>">
                 <%= getStudents[i].name %>
-                  <%= getStudents[i].first_surname %>
+                 <%= getStudents[i].first_surname %>
               </option>
               <% } %>
           </select>
@@ -75,12 +75,14 @@
 
       <div class="spanCenter">Descripción del envío</div>
       <div id="textContainerDescription">
-        <input id="sendDescription" name="send" type="text">
+        <input id="sendDescription" name="sendDescription" type="text">
       </div>
       <div class="spanCenter">¿cuánto envías?</div>
       <div id="numberContainerqty">
-        <input id="pointQty" type="number">
-        <input type="hidden" id="senderId" value="<%= studentId %>">
+        <input id="pointQty" name="pointQty" type="number">
+        <input type="hidden" name="senderId" value="<%= studentLogged.id %>">
+        <input type="hidden" name="userSender" value="<%= studentLogged.name %>">
+        <input type="hidden" name="date" value="">
         <button type="submit" id="sendPoints">ENVIAR</button>
       </div>
       </form>

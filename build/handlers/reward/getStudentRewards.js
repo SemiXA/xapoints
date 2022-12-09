@@ -22,20 +22,19 @@ function getStudentRewards(req, res) {
             const token = req.session.token;
             const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
             const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
+            console.log(studentIdecoded);
             const studentSentRewards = yield (0, rewardServices_js_1.findRewardsSentFromStudent)(studentId);
             const studentReceivedRewards = yield (0, rewardServices_js_1.findRewardsReceivedFromStudent)(studentId);
             const showPointsFromStudent = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const getStudents = yield (0, studentServices_js_1.findAllStudents)();
             const lastRewards = yield (0, rewardServices_js_1.findRewardsSortedByDate)();
-            console.log(req.session);
-            //const insertStudent = await insertOneUser({"id": 3,"email":"juan@toni.com","password": "12345","role": "Student"},()=>{})
-            //console.log(studentSentRewards);
+            const studentLogged = yield (0, studentServices_js_1.findOneStudent)(studentId);
             res.status(200).render("pages/points", { studentSentRewards,
                 studentReceivedRewards,
                 showPointsFromStudent,
                 getStudents,
                 lastRewards,
-                studentId
+                studentLogged
             });
         }
         catch (error) {

@@ -1,10 +1,7 @@
-import {Reward} from "../types/reward";
-import {db} from "../../config";
 import {OkPacket, RowDataPacket} from "mysql2";
 import mysqlPromise from "mysql2/promise";
 import { connectionData } from "../../config";
-import { query } from "express";
-import { ReplOptions } from "repl";
+
 
 
 
@@ -36,4 +33,12 @@ import { ReplOptions } from "repl";
     const connection = await mysqlPromise.createConnection(connectionData);
     const result = await connection.execute(querystring);
     return (<RowDataPacket>result)
+  }
+
+
+  export async function findRankingMaxFive(){
+    const querystring = "SELECT SUM(xp_points) as points, student.name from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5"
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(querystring);
+    return (<RowDataPacket>result)[0];
   }
