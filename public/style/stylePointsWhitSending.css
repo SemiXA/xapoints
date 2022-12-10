@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: 'Rubik', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: "Rubik", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 body {
@@ -30,7 +30,6 @@ h2 {
   justify-content: space-evenly;
   border-radius: 7vw 7vw 0vw 0vw;
 }
-
 
 #menu a img {
   width: 10vw;
@@ -64,7 +63,7 @@ h2 {
   width: 30vw;
   height: 30vw;
   border-radius: 50%;
-  background-image: conic-gradient(rgba(224, 0, 77)0% 100%);
+  background-image: conic-gradient(rgba(224, 0, 77) 0% 100%);
 }
 
 .piechart2 {
@@ -72,7 +71,7 @@ h2 {
   width: 30vw;
   height: 30vw;
   border-radius: 50%;
-  background-image: conic-gradient(rgba(7, 29, 73)0% 30%, rgba(224, 0, 77)0%);
+  background-image: conic-gradient(rgba(7, 29, 73) 0% 30%, rgba(224, 0, 77) 0%);
 }
 
 #numberpie2 {
@@ -145,7 +144,6 @@ hr {
   flex-wrap: nowrap;
   justify-content: center;
 }
-
 
 #sendButton {
   background-color: rgb(224, 0, 77);
@@ -242,7 +240,7 @@ select {
   }
 }
 
-@media all and (orientation:landscape) {
+@media all and (orientation: landscape) {
   body {
     font-size: 1.5vw;
   }
@@ -288,7 +286,11 @@ select {
     grid-template-rows: 48vh;
     grid-template-areas:
       "a b"
+      "b2 b2"
       "c c";
+  }
+  #envioDePuntosCompletado {
+    grid-area: b2;
   }
 
   #divPiechart {
@@ -322,7 +324,10 @@ select {
   #enviarPuntos {
     grid-area: b;
   }
-
+  #eldelcentro{
+    margin:auto;
+    text-align: center;
+  }
   #miHistorial {
     grid-area: c;
   }
@@ -383,9 +388,8 @@ select {
 }
 
 @media only screen and (min-width: 1280px) {
-
-  h1,h2 {
-
+  h1,
+  h2 {
     margin-top: 5vw;
   }
 
@@ -393,19 +397,21 @@ select {
     display: flex;
     position: fixed;
     top: 0vw;
-    width:100vw;
+    width: 100vw;
     height: 8vw;
     justify-content: center;
     border-radius: 0vw;
     background-color: rgb(7, 29, 73);
-  box-shadow: 5px -5px 20px rgb(255, 255, 255);
+    box-shadow: 5px -5px 20px rgb(255, 255, 255);
   }
 
   .menuFoot p {
     margin: 0%;
     font-size: 1vw;
   }
-
+  #eldelcentro{
+    align-items: center;
+  }
 }
 /*360×640 
 768x

@@ -28,10 +28,10 @@ import { connectionData } from "../../config";
     return (<RowDataPacket>result)[0];
   }
 
-  export async function insertOneReward(IDUserSender: number, IDUserRewarded: number, XPpoints: number, Date: Date,Description: string){
-    const querystring = "insert into reward (id_user_sender, id_user_rewarded, xp_points, date, description) values (:id_user_sender, :id_user_rewarded, :xp_points, :date, :description);"
+  export async function insertOneReward(IDUserSender: number, IDUserRewarded: number, XPpoints: number, Description: string){
+    const querystring = "insert into reward (id_user_sender, id_user_rewarded, xp_points, description) values (?, ?, ?, ?)"
     const connection = await mysqlPromise.createConnection(connectionData);
-    const result = await connection.execute(querystring);
+    const result = await connection.execute(querystring, [IDUserSender,IDUserRewarded,XPpoints,Description]);
     return (<RowDataPacket>result)
   }
 
@@ -42,3 +42,13 @@ import { connectionData } from "../../config";
     const result = await connection.execute(querystring);
     return (<RowDataPacket>result)[0];
   }
+
+  export async function lessPointsToStudent(id_sender:number,points:number){
+    const querystring = "UPDATE student set activa_points_balance = activa_points_balance - ? where id_user = ?"
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(querystring,[points ,id_sender]);
+    return (<RowDataPacket>result)[0];
+  }
+
+
+

@@ -58,35 +58,36 @@
     <div id="fondo">
       <p class="center">Alumnos Xarxatec Activa 2023</p>
       <form action="/sendReward" method="post">
-      <div class="search">
+        <div class="search">
 
-        <img id="iconActiva" src="img/puntos-activa-logo.svg" alt="logoBuscarGente">
-        
+          <img id="iconActiva" src="img/puntos-activa-logo.svg" alt="logoBuscarGente">
+
           <select name="idRewardedStudent" id="alumnos">
             <% for(var i=0; i < getStudents.length; i++) { %>
               <option value="<%= getStudents[i].id %>" id="<%= getStudents[i].id %>">
                 <%= getStudents[i].name %>
-                 <%= getStudents[i].first_surname %>
+                  <%= getStudents[i].first_surname %>
               </option>
               <% } %>
           </select>
-      </div>
+        </div>
+        <div class="spanCenter">Descripción del envío</div>
+        <div id="textContainerDescription">
+          <input id="sendDescription" name="sendDescription" type="text">
+        </div>
+        <div class="spanCenter">¿cuánto envías?</div>
+        <div id="numberContainerqty">
+          <input id="pointQty" name="pointQty" type="number">
+          <input type="hidden" name="senderId" value="<%= studentLogged.id %>">
+          <input type="hidden" name="userSender" value="<%= studentLogged.name %>">
+          <button type="submit" id="sendPoints">ENVIAR</button>
 
-
-      <div class="spanCenter">Descripción del envío</div>
-      <div id="textContainerDescription">
-        <input id="sendDescription" name="sendDescription" type="text">
-      </div>
-      <div class="spanCenter">¿cuánto envías?</div>
-      <div id="numberContainerqty">
-        <input id="pointQty" name="pointQty" type="number">
-        <input type="hidden" name="senderId" value="<%= studentLogged.id %>">
-        <input type="hidden" name="userSender" value="<%= studentLogged.name %>">
-        <input type="hidden" name="date" value="">
-        <button type="submit" id="sendPoints">ENVIAR</button>
-      </div>
+        </div>
       </form>
     </div>
+  </div>
+  <div id="envioDePuntosCompletado">
+    <p class="spanCenter">puntos enviados</p>
   </div>
   <div id="miHistorial">
     <h2 class="center">MI HISTORIAL</h2>
@@ -186,7 +187,10 @@
     receivedPoints.addEventListener("click", receivedSentRewards);
     sentPoints.addEventListener("click", receivedSentRewards);
   </script>
-
+  <% if (sentrewards==="true" ) { %>
+    <script>alert("Puntos Enviados")</script>
+    <% } %>
+    
 </body>
 
 </html>
