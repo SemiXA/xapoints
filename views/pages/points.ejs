@@ -24,7 +24,7 @@
       <p>Mi perfil</p>
     </div>
     <div class="menuFoot">
-      <a href="login.html"><img src="img/iconosMenu/logout-gray.svg" alt="exit"></a>
+      <a href="/logout" ><img src="img/iconosMenu/logout-gray.svg" alt="exit"></a>
       <p>Salir</p>
     </div>
   </div>
@@ -64,11 +64,13 @@
 
           <select name="idRewardedStudent" id="alumnos">
             <% for(var i=0; i < getStudents.length; i++) { %>
-              <option value="<%= getStudents[i].id %>" id="<%= getStudents[i].id %>">
-                <%= getStudents[i].name %>
-                  <%= getStudents[i].first_surname %>
-              </option>
-              <% } %>
+              <% if(getStudents[i].id != studentLogged.id) { %>
+                <option value="<%= getStudents[i].id %>" id="<%= getStudents[i].id %>">
+                  <%= getStudents[i].name %>
+                    <%= getStudents[i].first_surname %>
+                </option>
+                <% } %>
+                    <% } %>
           </select>
         </div>
         <div class="spanCenter">Descripción del envío</div>
@@ -190,7 +192,7 @@
   <% if (sentrewards==="true" ) { %>
     <script>alert("Puntos Enviados")</script>
     <% } %>
-    
+
 </body>
 
 </html>

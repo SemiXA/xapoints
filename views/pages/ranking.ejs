@@ -34,6 +34,7 @@
             <hr id="rankingTitle" />
             
                 <% for(var i=0; i < ranking.length; i++) { %>
+                   <% if(i < 5) { %>
                     <div class="rankingList1">
                         <p class="rankingPositionPodium item1"><%= i +1 %></p>
                         <p class="item2"><%= ranking[i].name %></p>
@@ -42,14 +43,19 @@
                     </div>
                     <hr id="rankingHr" />
                     <% } %>
+                    <% } %>
             
         </div>
         <div>
             <div id="rankingCup">
                 <div class="center">
                     <img id="cup" src="img/iconosMenu/ranking-blue.svg" alt="una copa"></div>
-                <div id="myPosition">TU PUESTO ACTUAL <b id="myPositionNumber">7</b> <cite id="myTittle"> LLEGANDO A LA CIMA</cite>
-                </div>
+                <% for(var i=0; i < ranking.length; i++) { %>
+                    <% if(studentLogged.id == ranking[i].id) { %>
+                        <div id="myPosition">TU PUESTO ACTUAL <b id="myPositionNumber"><%= i +1 %></b> <cite id="myTittle"> LLEGANDO A LA CIMA</cite>
+                        </div>
+                    <% } %>
+                <% } %>
             </div>
         </div>
     </div>

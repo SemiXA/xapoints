@@ -8,15 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRankingList = void 0;
 const rewardServices_1 = require("../../model/services/rewardServices");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const studentServices_1 = require("../../model/services/studentServices");
 function getRankingList(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const token = req.session.token;
+            const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
+            const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
             const ranking = yield (0, rewardServices_1.findRankingMaxFive)();
+            const studentLogged = yield (0, studentServices_1.findOneStudent)(studentId);
             console.log({ ranking });
-            res.status(200).render("pages/ranking", { ranking });
+            res.status(200).render("pages/ranking", { ranking, studentLogged });
         }
         catch (error) {
             res.status(404).json({ "message": "not found" });

@@ -37,7 +37,7 @@ import { connectionData } from "../../config";
 
 
   export async function findRankingMaxFive(){
-    const querystring = "SELECT SUM(xp_points) as points, student.name from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5"
+    const querystring = "SELECT SUM(xp_points) as points, student.name, student.id from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5"
     const connection = await mysqlPromise.createConnection(connectionData);
     const result = await connection.execute(querystring);
     return (<RowDataPacket>result)[0];

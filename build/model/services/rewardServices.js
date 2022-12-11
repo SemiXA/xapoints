@@ -53,7 +53,7 @@ function insertOneReward(IDUserSender, IDUserRewarded, XPpoints, Description) {
 exports.insertOneReward = insertOneReward;
 function findRankingMaxFive() {
     return __awaiter(this, void 0, void 0, function* () {
-        const querystring = "SELECT SUM(xp_points) as points, student.name from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5";
+        const querystring = "SELECT SUM(xp_points) as points, student.name, student.id from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5";
         const connection = yield promise_1.default.createConnection(config_1.connectionData);
         const result = yield connection.execute(querystring);
         return result[0];

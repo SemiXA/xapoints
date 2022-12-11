@@ -29,19 +29,19 @@ function getStudentRewards(req, res) {
             const lastRewards = yield (0, rewardServices_js_1.findRewardsSortedByDate)();
             const studentLogged = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const sentrewards = req.query.sentrewards;
-            console.log(sentrewards);
-            res.status(200).render("pages/points", { studentSentRewards,
+            res.status(200).render("pages/points", {
+                studentSentRewards,
                 studentReceivedRewards,
                 showPointsFromStudent,
                 getStudents,
                 lastRewards,
                 studentLogged,
-                sentrewards
+                sentrewards,
             });
         }
         catch (error) {
             console.log(error);
-            res.status(404).json({ "message": "not found" });
+            res.status(404).json({ message: "not found" });
         }
     });
 }

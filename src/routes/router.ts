@@ -12,6 +12,10 @@ import { userIsAdmin } from '../utils/userIsAdmin.js';
 import { getOneUser } from '../handlers/user/getOneUser';
 import { insertReward } from '../handlers/reward/insertReward';
 import { getRankingList } from '../handlers/reward/getRanking';
+import { insertUser } from '../handlers/user/insertUser';
+import { userLogout } from '../handlers/user/userLogout';
+
+
 
 
 
@@ -36,6 +40,8 @@ router.post("/logUser", userValidation);
 
 router.get("/users/:user_email", getOneUser);
 
+router.post("/users", insertUser);
+
 
 router.delete("/students", deleteStudent);
 
@@ -49,6 +55,8 @@ router.get("/points", getStudentRewards, getStudents);
 router.post("/sendReward", insertReward);
 
 router.get("/ranking", getRankingList);
+
+router.get("/logout", userLogout)
 
 
 
