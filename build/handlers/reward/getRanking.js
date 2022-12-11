@@ -12,37 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getStudentRewards = void 0;
-const rewardServices_js_1 = require("../../model/services/rewardServices.js");
-const studentServices_js_1 = require("../../model/services/studentServices.js");
+exports.getRankingList = void 0;
+const rewardServices_1 = require("../../model/services/rewardServices");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-function getStudentRewards(req, res) {
+const studentServices_1 = require("../../model/services/studentServices");
+function getRankingList(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const token = req.session.token;
             const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
             const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
-            const studentSentRewards = yield (0, rewardServices_js_1.findRewardsSentFromStudent)(studentId);
-            const studentReceivedRewards = yield (0, rewardServices_js_1.findRewardsReceivedFromStudent)(studentId);
-            const showPointsFromStudent = yield (0, studentServices_js_1.findOneStudent)(studentId);
-            const getStudents = yield (0, studentServices_js_1.findAllStudents)();
-            const lastRewards = yield (0, rewardServices_js_1.findRewardsSortedByDate)();
-            const studentLogged = yield (0, studentServices_js_1.findOneStudent)(studentId);
-            const sentrewards = req.query.sentrewards;
-            res.status(200).render("pages/points", {
-                studentSentRewards,
-                studentReceivedRewards,
-                showPointsFromStudent,
-                getStudents,
-                lastRewards,
-                studentLogged,
-                sentrewards,
-            });
+            const ranking = yield (0, rewardServices_1.findRankingMaxFive)();
+            const studentLogged = yield (0, studentServices_1.findOneStudent)(studentId);
+            console.log({ ranking });
+            res.status(200).render("pages/ranking", { ranking, studentLogged });
         }
         catch (error) {
-            console.log(error);
-            res.status(404).json({ message: "not found" });
+            res.status(404).json({ "message": "not found" });
         }
     });
 }
-exports.getStudentRewards = getStudentRewards;
+exports.getRankingList = getRankingList;

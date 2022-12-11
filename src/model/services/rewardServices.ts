@@ -1,10 +1,7 @@
-import {Reward} from "../types/reward";
-import {db} from "../../config";
 import {OkPacket, RowDataPacket} from "mysql2";
 import mysqlPromise from "mysql2/promise";
 import { connectionData } from "../../config";
-import { query } from "express";
-import { ReplOptions } from "repl";
+
 
 
 
@@ -31,9 +28,27 @@ import { ReplOptions } from "repl";
     return (<RowDataPacket>result)[0];
   }
 
-  export async function insertOneReward(IDUserSender: number, IDUserRewarded: number, XPpoints: number, Date: Date,Description: string){
-    const querystring = "insert into reward (id_user_sender, id_user_rewarded, xp_points, date, description) values (:id_user_sender, :id_user_rewarded, :xp_points, :date, :description);"
+  export async function insertOneReward(IDUserSender: number, IDUserRewarded: number, XPpoints: number, Description: string){
+    const querystring = "insert into reward (id_user_sender, id_user_rewarded, xp_points, description) values (?, ?, ?, ?)"
     const connection = await mysqlPromise.createConnection(connectionData);
-    const result = await connection.execute(querystring);
+    const result = await connection.execute(querystring, [IDUserSender,IDUserRewarded,XPpoints,Description]);
     return (<RowDataPacket>result)
   }
+
+
+  export async function findRankingMaxFive(){
+    const querystring = "SELECT SUM(xp_points) as points, student.name, student.id from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5"
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(querystring);
+    return (<RowDataPacket>result)[0];
+  }
+
+  export async function lessPointsToStudent(id_sender:number,points:number){
+    const querystring = "UPDATE student set activa_points_balance = activa_points_balance - ? where id_user = ?"
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(querystring,[points ,id_sender]);
+    return (<RowDataPacket>result)[0];
+  }
+
+
+

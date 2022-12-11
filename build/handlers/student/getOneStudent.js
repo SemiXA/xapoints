@@ -14,7 +14,7 @@ const studentServices_1 = require("../../model/services/studentServices");
 function getOneStudent(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const studentId = "1;";
+            const studentId = "1";
             const studentFound = yield (0, studentServices_1.findOneStudent)(studentId);
             return res.status(200).send(studentFound);
             {

@@ -1,13 +1,16 @@
-import { insertOneReward } from "../../model/services/rewardServices";
+import { insertOneReward, lessPointsToStudent } from "../../model/services/rewardServices";
 import express from 'express';
 
-export function insertReward(req: express.Request, res: express.Response){
+export async function insertReward(req: express.Request, res: express.Response){
    try {
-      //const insertReward =  await insertOneReward(req.body.); 
-      console.log(req.body.getStudents, req.body.sendDescription);
-      
+    
+     await insertOneReward(req.body.senderId, req.body.idRewardedStudent, req.body.pointQty, req.body.sendDescription); 
+     await lessPointsToStudent(req.body.senderId,req.body.pointQty);
+
+     res.redirect("/points?sentrewards=true");
+     
    } catch (error) {
-      console.log("error");
+      console.log(error);
         
  }
 }

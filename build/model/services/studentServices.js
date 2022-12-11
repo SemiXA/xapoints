@@ -17,8 +17,8 @@ const config_1 = require("../../config");
 const promise_1 = __importDefault(require("mysql2/promise"));
 const config_2 = require("../../config");
 function createStudent(student, callback) {
-    const queryString = "INSERT INTO student (name, first_surname, second_surname, email_personal, email_activa, phone_number, zip_code, prom, activa_points_balance ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    config_1.db.query(queryString, [student.name, student.firstSurname, student.secondSurname, student.personalEmailAddress, student.activaEmailAddress, student.phoneNumber, student.zipCode, student.prom, student.activaPointsBalance], (err, result) => {
+    const queryString = "INSERT INTO student (name, first_surname, second_surname, email_personal, email_activa, phone_number, zip_code, id_user, prom ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    config_1.db.query(queryString, [student.name, student.firstSurname, student.secondSurname, student.personalEmailAddress, student.activaEmailAddress, student.phoneNumber, student.zipCode, student.iduser, student.prom], (err, result) => {
         if (err) {
             callback(err, null);
         }
