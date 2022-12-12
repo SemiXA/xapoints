@@ -22,9 +22,8 @@ function getRankingList(req, res) {
             const token = req.session.token;
             const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
             const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
-            const ranking = yield (0, rewardServices_1.findRankingMaxFive)();
+            const ranking = yield (0, rewardServices_1.findRanking)();
             const studentLogged = yield (0, studentServices_1.findOneStudent)(studentId);
-            console.log({ ranking });
             res.status(200).render("pages/ranking", { ranking, studentLogged });
         }
         catch (error) {

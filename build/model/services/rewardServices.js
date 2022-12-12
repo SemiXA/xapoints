@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.lessPointsToStudent = exports.findRankingMaxFive = exports.insertOneReward = exports.findRewardsSortedByDate = exports.findRewardsReceivedFromStudent = exports.findRewardsSentFromStudent = void 0;
+exports.lessPointsToStudent = exports.findRanking = exports.insertOneReward = exports.findRewardsSortedByDate = exports.findRewardsReceivedFromStudent = exports.findRewardsSentFromStudent = void 0;
 const promise_1 = __importDefault(require("mysql2/promise"));
 const config_1 = require("../../config");
 function findRewardsSentFromStudent(IDUser) {
@@ -51,15 +51,15 @@ function insertOneReward(IDUserSender, IDUserRewarded, XPpoints, Description) {
     });
 }
 exports.insertOneReward = insertOneReward;
-function findRankingMaxFive() {
+function findRanking() {
     return __awaiter(this, void 0, void 0, function* () {
-        const querystring = "SELECT SUM(xp_points) as points, student.name, student.id from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC LIMIT 0,5";
+        const querystring = "SELECT SUM(xp_points) as points, student.name, student.id from reward inner join student ON reward.id_user_rewarded = student.id group by student.id order by points DESC";
         const connection = yield promise_1.default.createConnection(config_1.connectionData);
         const result = yield connection.execute(querystring);
         return result[0];
     });
 }
-exports.findRankingMaxFive = findRankingMaxFive;
+exports.findRanking = findRanking;
 function lessPointsToStudent(id_sender, points) {
     return __awaiter(this, void 0, void 0, function* () {
         const querystring = "UPDATE student set activa_points_balance = activa_points_balance - ? where id_user = ?";

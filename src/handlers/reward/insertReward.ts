@@ -1,6 +1,7 @@
 import { insertOneReward, lessPointsToStudent } from "../../model/services/rewardServices";
 import express from 'express';
 
+
 export async function insertReward(req: express.Request, res: express.Response){
    try {
     

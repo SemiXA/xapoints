@@ -21,7 +21,7 @@ function getStudentRewards(req, res) {
         try {
             const token = req.session.token;
             const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
-            const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
+            const studentId = yield (studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id);
             const studentSentRewards = yield (0, rewardServices_js_1.findRewardsSentFromStudent)(studentId);
             const studentReceivedRewards = yield (0, rewardServices_js_1.findRewardsReceivedFromStudent)(studentId);
             const showPointsFromStudent = yield (0, studentServices_js_1.findOneStudent)(studentId);

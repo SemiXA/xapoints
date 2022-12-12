@@ -10,30 +10,13 @@
 </head>
 
 <body>
-    <nav id="menu">
-        <div class="menuFoot">
-            <a href="points"><img src="img/iconosMenu/mis-puntos-gray.svg" alt="points"></a>
-            <p>Mis puntos</p>
-        </div>
-        <div class="menuFoot">
-            <a href="ranking.html"><img src="img/iconosMenu/ranking-red.svg" alt="ranking"></a>
-            <p class="red">Ranking</p>
-        </div>
-        <div class="menuFoot">
-            <a href="#"><img src="img/iconosMenu/mi-perfil-gray.svg" alt="perfil"></a>
-            <p>Mi perfil</p>
-        </div>
-        <div class="menuFoot">
-            <a href="index.html"><img src="img/iconosMenu/logout-gray.svg" alt="exit"></a>
-            <p>Salir</p>
-        </div>
-    </nav>
+    <%- include('../partials/menu') %>
     <div class="column">
         <div id="rankingColumn">
             <h1>RANKING</h1>
             <hr id="rankingTitle" />
             
-                <% for(var i=0; i < ranking.length; i++) { %>
+                <% for(var i=0; i < 5; i++) { %>
                    <% if(i < 5) { %>
                     <div class="rankingList1">
                         <p class="rankingPositionPodium item1"><%= i +1 %></p>
@@ -50,12 +33,15 @@
             <div id="rankingCup">
                 <div class="center">
                     <img id="cup" src="img/iconosMenu/ranking-blue.svg" alt="una copa"></div>
-                <% for(var i=0; i < ranking.length; i++) { %>
-                    <% if(studentLogged.id == ranking[i].id) { %>
-                        <div id="myPosition">TU PUESTO ACTUAL <b id="myPositionNumber"><%= i +1 %></b> <cite id="myTittle"> LLEGANDO A LA CIMA</cite>
+                        <div id="myPosition">TU PUESTO ACTUAL <b id="myPositionNumber">
+                            <% for(var i=0; i < ranking.length; i++) { %>
+                                <% if(studentLogged.id == ranking[i].id) { %>
+                                    <%= i +1 %>
+                                <% } %>
+                            <% } %>
+                                
+                        </b> <cite id="myTittle"> LLEGANDO A LA CIMA</cite>
                         </div>
-                    <% } %>
-                <% } %>
             </div>
         </div>
     </div>
