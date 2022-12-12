@@ -24,7 +24,10 @@ function getRankingList(req, res) {
             const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
             const ranking = yield (0, rewardServices_1.findRanking)();
             const studentLogged = yield (0, studentServices_1.findOneStudent)(studentId);
-            res.status(200).render("pages/ranking", { ranking, studentLogged });
+            const lastRewardsSent = yield (0, rewardServices_1.findRewardsSentSortedByDate)();
+            const lastRewardsReceived = yield (0, rewardServices_1.findRewardsReceivedSortedByDate)();
+            console.log(lastRewardsSent, lastRewardsReceived, ranking);
+            res.status(200).render("pages/ranking", { ranking, studentLogged, lastRewardsSent, lastRewardsReceived });
         }
         catch (error) {
             res.status(404).json({ "message": "not found" });

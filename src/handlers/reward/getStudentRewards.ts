@@ -2,7 +2,9 @@ import express from "express";
 import {
   findRewardsReceivedFromStudent,
   findRewardsSentFromStudent,
-  findRewardsSortedByDate,
+  findRewardsSentSortedByDate,
+  findRewardsSumSentFromStudent,
+  findStudentsRewarded,
 } from "../../model/services/rewardServices.js";
 import {
   findOneStudent,
@@ -18,29 +20,33 @@ export async function getStudentRewards(
   try {
     const token = req.session.token as string;
     const studentIdecoded = jsonwebtoken.decode(token, { json: true });
-    const studentId = await studentIdecoded?.id;
+    const studentId = studentIdecoded?.id;
 
     const studentSentRewards = await findRewardsSentFromStudent(studentId);
+    const studentSentRewardsSum = await findRewardsSumSentFromStudent(studentId)
     const studentReceivedRewards = await findRewardsReceivedFromStudent(
       studentId
     );
+    const studentRewarded = await findStudentsRewarded(studentId);
     const showPointsFromStudent = await findOneStudent(studentId);
     const getStudents = await findAllStudents();
-    const lastRewards = await findRewardsSortedByDate();
     const studentLogged = await findOneStudent(studentId);
     const sentrewards = req.query.sentrewards;
+
+    
 
     res.status(200).render(
       "pages/points",
 
       {
         studentSentRewards,
+        studentSentRewardsSum,
         studentReceivedRewards,
         showPointsFromStudent,
         getStudents,
-        lastRewards,
         studentLogged,
         sentrewards,
+        studentRewarded
       }
     );
   } catch (error) {

@@ -47,56 +47,17 @@
     </div>
     <div id="socialColumns">
         <h2 class="center">HISTORIAL SOCIAL</h2>
-        <hr />
-        <div class="pAlign">
-            <div id="headerPoints"><span class="pointsRed"><b>100</b> PuntosActiva </span>Ganó
-                <b>MARLON BRANDON</b></div>
-            <br>
-            Sin ti no hubiera podido conseguirlo tqm bs7s, Un abrazo!.<br>
-            <p>de parte de <b>Elvis no Presley</b>
-        </div>
         <hr id="rankingHr" />
-        <div class="pAlign">
-            <div id="headerPoints"><span class="pointsRed"><b>50</b> PuntosActiva </span>Ganó
-                <b>PICKLE RICK</b></div>
-            <br>
-            Si dejearas de beber serías un buen abuelo.<br>
-            <p>de parte de <b>Morty</b>
-        </div>
-        <hr id="rankingHr" />
-        <div class="pAlign">
-            <div id="headerPoints"><span class="pointsRed"><b>75</b> PuntosActiva </span>Ganó
-                <b>PEPPE RONI</b></div>
-            <br>
-            Con pizza en todos los trabajos salen "redondos" (K).<br>
-            <p>de parte de <b>Lydia Blanco</b>
-        </div>
-        <hr id="rankingHr" />
-        <div class="pAlign">
-            <div id="headerPoints"><span class="pointsRed"><b>150</b> PuntosActiva </span>Ganó
-                <b>MARIE KONDO</b></div>
-            <br>
-            Al ordenar tu css encontraste la clave del exito en tu corazón. <br>
-            <p>de parte de <b>Marie Curie</b>
-        </div>
-        <hr id="rankingHr" />
-        <div class="pAlign">
-            <div id="headerPoints"><span class="pointsRed"><b>25</b> PuntosActiva </span>Ganó
-                <b>KARLOS ARGUIÑANO</b></div><br> ¿Cómo les llaman los caníbales a los paracaidistas?", "Tocinitos
-            de
-            cielo".
-            <br>
-            <p>de parte de <b>Hannibal Lecter</b>
-        </div>
-        <hr id="rankingHr" />
-        <div class="pAlign">
-            <div id="headerPoints"><span class="pointsRed"><b>175</b> PuntosActiva </span>Ganó
-                <b>CLARA</b></div>
-            <br>
-            Muchas gracias por aCLARArme la duda de bases de datos,
-            Sin niebla todo está más claro.<br>
-            <p>de parte de <b>HEIDI</b>
-        </div>
+        <% for(var i=0; i < lastRewardsSent.length; i++) { %>
+                <div class="pAlign">
+                    <div id="headerPoints"><span class="pointsRed"><b><%= lastRewardsSent[i].xp_points %></b> PuntosActiva </span>Ganó
+                        <b><%= lastRewardsReceived[i].name %></b></div>
+                    <br>
+                    <%= lastRewardsSent[i].description %><br>
+                    <p>de parte de <b><%= lastRewardsSent[i].name %></b>
+                </div>
+                <hr id="rankingHr" />
+                <% } %>
         <br><br><br>
     </div>
 </body>

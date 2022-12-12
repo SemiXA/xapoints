@@ -26,7 +26,7 @@
       <div>
         <div class="piechart2">
           <div id="numberpie2">
-            <%= studentReceivedRewards.points %>
+            <%= studentSentRewardsSum.sumPoints %>
           </div>
         </div>
         <p class="pieText">TOTAL<br> <span id="sendText"> <a id="sentPoints" href="#">Enviados</a></span> | <span
@@ -79,80 +79,23 @@
       <a href="mispuntosRecibidos.html">
         <button id="receivedButton">RECIBIDOS</a></button>
     </div>
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>
-            <%= lastRewards[0].xp_points %>
-          </b></span> PUNTOS ENVIADOS
-        <%= lastRewards[0].date.getDate()%>/<%=lastRewards[0].date.getUTCMonth() +1%>/
-            <%=lastRewards[0].date.getFullYear() %>
+    <% for(var i=0; i < studentSentRewards.length; i++) { %>
+      <div class="pAlign">
+        <div><span class="pointsRed"><b>
+              <%= studentSentRewards[i].xp_points %>
+            </b></span> PUNTOS ENVIADOS
+          <%= studentSentRewards[i].date.getDate()%>/<%=studentSentRewards[i].date.getUTCMonth() +1%>/
+              <%=studentSentRewards[i].date.getFullYear() %>
+        </div>
+        <p>
+          <%= studentSentRewards[i].description %>
+        </p>
+        <p> para <b>
+            <%= studentRewarded[i].name %>
+          </b></p>
       </div>
-      <p>
-        <%= lastRewards[0].description %>
-      </p>
-      <p> de parte de <b>
-          <%= lastRewards[0].name %>
-        </b></p>
-    </div>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>
-            <%= lastRewards[1].xp_points %>
-          </b></span> PUNTOS ENVIADOS
-        <%= lastRewards[1].date.getDate()%>/<%=lastRewards[1].date.getUTCMonth() +1%>/
-            <%=lastRewards[1].date.getFullYear() %>
-      </div>
-      <br>
-      <%= lastRewards[1].description %><br>
-        <p>de parte de <b>
-            <%= lastRewards[1].name %>
-          </b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>
-            <%= lastRewards[2].xp_points %>
-          </b></span> PUNTOS ENVIADOS
-        <%= lastRewards[2].date.getDate()%>/<%=lastRewards[2].date.getUTCMonth()+1%>/
-            <%=lastRewards[2].date.getFullYear() %>
-      </div>
-      <br>
-      <%= lastRewards[2].description %><br>
-        <p> de parte de <b>
-            <%= lastRewards[2].name %>
-          </b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>
-            <%= lastRewards[3].xp_points %>
-          </b></span> PUNTOS ENVIADOS
-        <%= lastRewards[3].date.getDate()%>/<%=lastRewards[3].date.getUTCMonth()+1%>/
-            <%=lastRewards[3].date.getFullYear() %>
-      </div>
-      <br>
-      <%= lastRewards[3].description %><br>
-        <p> de parte de <b>
-            <%= lastRewards[3].name %>
-          </b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>
-            <%= lastRewards[4].xp_points %>
-          </b></span> PUNTOS ENVIADOS
-        <%= lastRewards[4].date.getDate()%>/<%=lastRewards[4].date.getUTCMonth()+1%>/
-            <%=lastRewards[4].date.getFullYear() %>
-      </div>
-      <br>
-      <%= lastRewards[4].description %><br>
-        <p> de parte de <b>
-            <%= lastRewards[4].name %>
-          </b>
-    </div>
-    </p>
+      <hr id="hrHistory" />
+      <% } %>
     <br><br><br><br>
   </div>
   <script>
@@ -163,7 +106,7 @@
 
     function receivedSentRewards(e) {
       if (e.target.innerText == "Recibidos") numpie.innerHTML = `<%= studentReceivedRewards.points %>`;
-      if (e.target.innerText == "Enviados") numpie.innerHTML = `<%= studentSentRewards.points %>`;
+      if (e.target.innerText == "Enviados") numpie.innerHTML = `<%= studentSentRewardsSum.sumPoints %>`;
     }
 
     receivedPoints.addEventListener("click", receivedSentRewards);

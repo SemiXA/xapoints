@@ -7,7 +7,14 @@ import { connectionData } from "../../config";
 
   export async function findRewardsSentFromStudent (IDUser: string){
   
-    const queryString = "SELECT SUM(xp_points) as points from reward where id_user_sender = ?";
+    const queryString = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_sender = student.id_user WHERE  reward.id_user_sender = ? ORDER BY reward.date DESC LIMIT 0,5";
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(queryString, [IDUser]);
+    return (<RowDataPacket>result)[0];
+  }
+  export async function findRewardsSumSentFromStudent (IDUser: string){
+  
+    const queryString = "SELECT SUM(reward.xp_points) as sumPoints, student.name, reward.description, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_sender = student.id_user WHERE ? = reward.id_user_sender ORDER BY reward.date DESC LIMIT 0,5";
     const connection = await mysqlPromise.createConnection(connectionData);
     const result = await connection.execute(queryString, [IDUser]);
     return (<RowDataPacket>result)[0][0];
@@ -21,8 +28,22 @@ import { connectionData } from "../../config";
     return (<RowDataPacket>result)[0][0];
   }
 
-  export async function findRewardsSortedByDate(){
-    const querystring = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_sender = student.id_user ORDER BY reward.date DESC"
+  export async function findStudentsRewarded(IDUser: string){
+    const queryString = "select student.name from reward  inner join student on id_user_rewarded = student.id_user where reward.id_user_sender = ? ;"
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(queryString, [IDUser]);
+    return (<RowDataPacket>result)[0];
+
+  }
+ 
+  export async function findRewardsSentSortedByDate(){
+    const querystring = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_sender = student.id_user ORDER BY reward.date DESC LIMIT 0,5"
+    const connection = await mysqlPromise.createConnection(connectionData);
+    const result = await connection.execute(querystring);
+    return (<RowDataPacket>result)[0];
+  }
+  export async function findRewardsReceivedSortedByDate(){
+    const querystring = "SELECT student.name FROM reward INNER JOIN student ON reward.id_user_rewarded = student.id_user ORDER BY reward.date DESC LIMIT 0,5"
     const connection = await mysqlPromise.createConnection(connectionData);
     const result = await connection.execute(querystring);
     return (<RowDataPacket>result)[0];
