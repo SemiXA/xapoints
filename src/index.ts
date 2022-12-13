@@ -9,7 +9,7 @@ import MySQLSessionStore from 'express-mysql-session';
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const optionsStore = {
-  connectionLimit: 100,
+  connectionLimit: 151,
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PWD,

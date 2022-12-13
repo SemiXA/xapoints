@@ -1,8 +1,6 @@
 <% for(var i=0; i < studentRewarded.length; i++) { %>
     <div class="pAlign">
-      <div><span class="pointsBlue"><b>
-            <%= studentRewarded[i].xp_points %>
-          </b></span> PUNTOS RECIBIDOS
+      <div><span class="pointsBlue"><b>    <%= studentRewarded[i].xp_points %></b></span> PUNTOS RECIBIDOS
         <%= studentRewarded[i].date.getDate()%>/<%=studentRewarded[i].date.getUTCMonth() +1%>/
             <%=studentRewarded[i].date.getFullYear() %>
       </div>

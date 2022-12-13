@@ -5,7 +5,7 @@ import {jwtToken} from '../model/types/jwtToken.js';
 
 async function userIsAdmin( req: express.Request, res: express.Response, next: NextFunction){
     if (req.session.token != undefined){ 
-        const tokenVerified = await jsonwebtoken.verify(req.session.token, process.env.SESSION_SECRET!);
+        const tokenVerified = jsonwebtoken.verify(req.session.token, process.env.SESSION_SECRET!);
         const myTokenVerified: jwtToken = <jwtToken>tokenVerified;
         if( myTokenVerified.role == "admin"){
                 next();

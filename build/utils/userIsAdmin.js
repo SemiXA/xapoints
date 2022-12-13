@@ -17,7 +17,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function userIsAdmin(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (req.session.token != undefined) {
-            const tokenVerified = yield jsonwebtoken_1.default.verify(req.session.token, process.env.SESSION_SECRET);
+            const tokenVerified = jsonwebtoken_1.default.verify(req.session.token, process.env.SESSION_SECRET);
             const myTokenVerified = tokenVerified;
             if (myTokenVerified.role == "admin") {
                 next();

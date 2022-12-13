@@ -23,7 +23,6 @@ async function insertOneUser(user: User, callback: Function){
         if (err) {
           callback(err, null);
         }
-        console.log(result, err);
         
         const userId = (<OkPacket> result).insertId;
         callback(null, userId);
