@@ -12,10 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userLogout = void 0;
 function userLogout(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.session);
         delete req.session.token;
         req.session.destroy(function (err) {
-            console.log({ err });
             res.redirect("/login.html");
         });
     });

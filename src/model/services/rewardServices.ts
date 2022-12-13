@@ -7,7 +7,7 @@ import { connectionData } from "../../config";
 
   export async function findRewardsSentFromStudent (IDUser: string){
   
-    const queryString = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_sender = student.id_user WHERE  reward.id_user_sender = ? ORDER BY reward.date DESC LIMIT 0,5";
+    const queryString = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_rewarded = student.id_user WHERE  reward.id_user_sender = ? ORDER BY reward.date DESC LIMIT 0,5";
     const connection = await mysqlPromise.createConnection(connectionData);
     const result = await connection.execute(queryString, [IDUser]);
     return (<RowDataPacket>result)[0];
@@ -29,7 +29,7 @@ import { connectionData } from "../../config";
   }
 
   export async function findStudentsRewarded(IDUser: string){
-    const queryString = "select student.name from reward  inner join student on id_user_rewarded = student.id_user where reward.id_user_sender = ? ;"
+    const queryString = "select student.name, reward.date, reward.xp_points, reward.description from reward  inner join student on id_user_sender = student.id_user where reward.id_user_rewarded = ? LIMIT 0,5";
     const connection = await mysqlPromise.createConnection(connectionData);
     const result = await connection.execute(queryString, [IDUser]);
     return (<RowDataPacket>result)[0];

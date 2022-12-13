@@ -30,6 +30,7 @@ function getStudentRewards(req, res) {
             const getStudents = yield (0, studentServices_js_1.findAllStudents)();
             const studentLogged = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const sentrewards = req.query.sentrewards;
+            const puntosEnviados = req.query.puntosEnviados;
             res.status(200).render("pages/points", {
                 studentSentRewards,
                 studentSentRewardsSum,
@@ -38,7 +39,8 @@ function getStudentRewards(req, res) {
                 getStudents,
                 studentLogged,
                 sentrewards,
-                studentRewarded
+                studentRewarded,
+                puntosEnviados
             });
         }
         catch (error) {

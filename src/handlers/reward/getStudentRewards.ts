@@ -32,6 +32,8 @@ export async function getStudentRewards(
     const getStudents = await findAllStudents();
     const studentLogged = await findOneStudent(studentId);
     const sentrewards = req.query.sentrewards;
+    const puntosEnviados = req.query.puntosEnviados;
+    
       
     res.status(200).render(
       "pages/points",
@@ -44,7 +46,9 @@ export async function getStudentRewards(
         getStudents,
         studentLogged,
         sentrewards,
-        studentRewarded
+        studentRewarded,
+        puntosEnviados
+        
       }
     );
   } catch (error) {

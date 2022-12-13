@@ -75,27 +75,18 @@
     <h2 class="center">MI HISTORIAL</h2>
     <hr />
     <div class="btnGroup">
-      <button id="sendButton"><u>ENVIADOS</u></button>
-      <a href="mispuntosRecibidos.html">
-        <button id="receivedButton">RECIBIDOS</a></button>
+      <a href="points?puntosEnviados=true"><button id="sendButton"><u>ENVIADOS</u></button></a>
+      <a href="points?puntosEnviados=false"><button id="receivedButton"><u>RECIBIDOS</u></button></a>
     </div>
-    <% for(var i=0; i < studentSentRewards.length; i++) { %>
-      <div class="pAlign">
-        <div><span class="pointsRed"><b>
-              <%= studentSentRewards[i].xp_points %>
-            </b></span> PUNTOS ENVIADOS
-          <%= studentSentRewards[i].date.getDate()%>/<%=studentSentRewards[i].date.getUTCMonth() +1%>/
-              <%=studentSentRewards[i].date.getFullYear() %>
-        </div>
-        <p>
-          <%= studentSentRewards[i].description %>
-        </p>
-        <p> para <b>
-            <%= studentRewarded[i].name %>
-          </b></p>
-      </div>
-      <hr id="hrHistory" />
+    <% if(puntosEnviados=="false"){ %>
+      <%- include('../partials/puntosRecibidos') %>
+      
+    <% } else{ %>
+      <%- include('../partials/puntosEnviados') %>
       <% } %>
+    
+   
+  
     <br><br><br><br>
   </div>
   <script>

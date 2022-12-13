@@ -14,10 +14,9 @@ const rewardServices_1 = require("../../model/services/rewardServices");
 function insertReward(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(req.body);
             yield (0, rewardServices_1.insertOneReward)(req.body.senderId, req.body.idRewardedStudent, req.body.pointQty, req.body.sendDescription);
             yield (0, rewardServices_1.lessPointsToStudent)(req.body.senderId, req.body.pointQty);
-            res.redirect("/points?sentrewards=true");
+            res.redirect("/points?puntosEnviados=true&sentrewards=true");
         }
         catch (error) {
             console.log(error);

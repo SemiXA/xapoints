@@ -17,7 +17,7 @@ const promise_1 = __importDefault(require("mysql2/promise"));
 const config_1 = require("../../config");
 function findRewardsSentFromStudent(IDUser) {
     return __awaiter(this, void 0, void 0, function* () {
-        const queryString = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_sender = student.id_user WHERE  reward.id_user_sender = ? ORDER BY reward.date DESC LIMIT 0,5";
+        const queryString = "SELECT student.name, reward.description, reward.xp_points, reward.date, reward.id_user_rewarded FROM reward INNER JOIN student ON reward.id_user_rewarded = student.id_user WHERE  reward.id_user_sender = ? ORDER BY reward.date DESC LIMIT 0,5";
         const connection = yield promise_1.default.createConnection(config_1.connectionData);
         const result = yield connection.execute(queryString, [IDUser]);
         return result[0];
@@ -44,7 +44,7 @@ function findRewardsReceivedFromStudent(IDUser) {
 exports.findRewardsReceivedFromStudent = findRewardsReceivedFromStudent;
 function findStudentsRewarded(IDUser) {
     return __awaiter(this, void 0, void 0, function* () {
-        const queryString = "select student.name from reward  inner join student on id_user_rewarded = student.id_user where reward.id_user_sender = ? ;";
+        const queryString = "select student.name, reward.date, reward.xp_points, reward.description from reward  inner join student on id_user_sender = student.id_user where reward.id_user_rewarded = ? LIMIT 0,5";
         const connection = yield promise_1.default.createConnection(config_1.connectionData);
         const result = yield connection.execute(queryString, [IDUser]);
         return result[0];
