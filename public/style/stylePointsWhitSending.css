@@ -330,6 +330,7 @@ select {
   }
   #miHistorial {
     grid-area: c;
+    margin-top: 7vw;
   }
 
   select {
