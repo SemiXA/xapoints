@@ -20,9 +20,7 @@ function getStudentRewards(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const token = req.session.token;
-            console.log({ token });
             const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
-            console.log({ studentIdecoded });
             const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
             const studentSentRewards = yield (0, rewardServices_js_1.findRewardsSentFromStudent)(studentId);
             const studentSentRewardsSum = yield (0, rewardServices_js_1.findRewardsSumSentFromStudent)(studentId);
@@ -32,7 +30,6 @@ function getStudentRewards(req, res) {
             const getStudents = yield (0, studentServices_js_1.findAllStudents)();
             const studentLogged = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const sentrewards = req.query.sentrewards;
-            console.log(studentRewarded);
             res.status(200).render("pages/points", {
                 studentSentRewards,
                 studentSentRewardsSum,

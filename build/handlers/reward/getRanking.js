@@ -26,7 +26,7 @@ function getRankingList(req, res) {
             const studentLogged = yield (0, studentServices_1.findOneStudent)(studentId);
             const lastRewardsSent = yield (0, rewardServices_1.findRewardsSentSortedByDate)();
             const lastRewardsReceived = yield (0, rewardServices_1.findRewardsReceivedSortedByDate)();
-            console.log(lastRewardsSent, lastRewardsReceived, ranking);
+            console.log(ranking);
             res.status(200).render("pages/ranking", { ranking, studentLogged, lastRewardsSent, lastRewardsReceived });
         }
         catch (error) {

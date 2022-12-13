@@ -14,9 +14,7 @@ export async function getRankingList(req: express.Request, res: express.Response
         const studentLogged = await findOneStudent(studentId);
         const lastRewardsSent = await findRewardsSentSortedByDate();
         const lastRewardsReceived = await findRewardsReceivedSortedByDate();
-        console.log(lastRewardsSent, lastRewardsReceived, ranking);
-        
-        
+
         
         res.status(200).render("pages/ranking",{ranking, studentLogged, lastRewardsSent,lastRewardsReceived});
     } catch (error) {

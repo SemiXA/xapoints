@@ -24,7 +24,6 @@ function userValidation(req, res) {
             if (yield bcrypt_1.default.compare(req.body.password, user.password)) {
                 const token = jsonwebtoken_1.default.sign({ "email": user.email, "role": user.role, "id": user.id }, process.env.SESSION_SECRET);
                 req.session.token = token;
-                console.log("pene", { token });
                 req.session.save(function (err) {
                     res.redirect("points");
                 });

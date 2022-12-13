@@ -32,9 +32,7 @@ export async function getStudentRewards(
     const getStudents = await findAllStudents();
     const studentLogged = await findOneStudent(studentId);
     const sentrewards = req.query.sentrewards;
-
-    
-
+      
     res.status(200).render(
       "pages/points",
 
