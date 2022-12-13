@@ -36,7 +36,6 @@ function insertOneUser(user, callback) {
             if (err) {
                 callback(err, null);
             }
-            console.log(result, err);
             const userId = result.insertId;
             callback(null, userId);
         });

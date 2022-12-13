@@ -21,14 +21,14 @@ import { userLogout } from '../handlers/user/userLogout';
 const router = express.Router();
 
 
-router.post("/students",insertStudent);
+router.post("/students", userIsAdmin, insertStudent);
 
-router.get("/students", getStudents);
+router.get("/students", userIsAdmin, getStudents);
 
 router.get("/students/:id_student", getOneStudent);
 
 
-router.put("/students/:id_student", updateOneStudent);
+router.put("/students/:id_student", userIsAdmin, updateOneStudent);
 
 
 
@@ -36,7 +36,7 @@ router.post("/logUser", userValidation);
 
 router.get("/users/:user_email", getOneUser);
 
-router.post("/users", insertUser);
+router.post("/users", userIsAdmin, insertUser);
 
 
 router.put("/students/:id_student", updateOneStudent);
@@ -44,7 +44,7 @@ router.put("/students/:id_student", updateOneStudent);
 router.post("/logUser", userValidation);
 
 
-router.get("/points", getStudentRewards, getStudents);
+router.get("/points", getStudentRewards);
 
 router.post("/sendReward", insertReward);
 
