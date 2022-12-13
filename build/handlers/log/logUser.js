@@ -24,7 +24,9 @@ function userValidation(req, res) {
             if (yield bcrypt_1.default.compare(req.body.password, user.password)) {
                 const token = jsonwebtoken_1.default.sign({ "email": user.email, "role": user.role, "id": user.id }, process.env.SESSION_SECRET);
                 req.session.token = token;
-                res.redirect("points");
+                req.session.save(function (err) {
+                    res.redirect("points");
+                });
             }
             else {
                 res.render("pages/login", { errorMessage: "El usuario y la contraseña no coinciden" });

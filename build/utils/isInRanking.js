@@ -9,13 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLogout = void 0;
-function userLogout(req, res) {
+exports.isInRanking = void 0;
+function isInRanking(studentId, ranking) {
     return __awaiter(this, void 0, void 0, function* () {
-        delete req.session.token;
-        req.session.destroy(function (err) {
-            res.redirect("/login.html");
-        });
+        for (let i = 0; i > ranking.length; i++) {
+            if (ranking[i].id == studentId) {
+                let rankingPosition = i;
+                return rankingPosition;
+                break;
+            }
+        }
     });
 }
-exports.userLogout = userLogout;
+exports.isInRanking = isInRanking;

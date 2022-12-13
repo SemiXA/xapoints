@@ -35,7 +35,7 @@ const session = require('express-session'); //to-do with import
 const express_mysql_session_1 = __importDefault(require("express-mysql-session"));
 dotenv.config({ path: path_1.default.join(__dirname, "..", ".env") });
 const optionsStore = {
-    connectionLimit: 10,
+    connectionLimit: 100,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PWD,

@@ -1,7 +1,8 @@
-import { findRankingMaxFive } from "../../model/services/rewardServices";
+import { findRanking, findRewardsReceivedSortedByDate, findRewardsSentSortedByDate } from "../../model/services/rewardServices";
 import express from 'express';
 import jsonwebtoken from "jsonwebtoken";
 import { findOneStudent } from "../../model/services/studentServices";
+
 
 
 export async function getRankingList(req: express.Request, res: express.Response){
@@ -9,14 +10,13 @@ export async function getRankingList(req: express.Request, res: express.Response
         const token = req.session.token as string;
         const studentIdecoded = jsonwebtoken.decode(token, { json: true });
         const studentId = studentIdecoded?.id;
-        const ranking = await findRankingMaxFive();
+        const ranking = await findRanking();
         const studentLogged = await findOneStudent(studentId);
-        console.log({ranking});
+        const lastRewardsSent = await findRewardsSentSortedByDate();
+        const lastRewardsReceived = await findRewardsReceivedSortedByDate();
+
         
-        
-    
-        
-        res.status(200).render("pages/ranking",{ranking, studentLogged});
+        res.status(200).render("pages/ranking",{ranking, studentLogged, lastRewardsSent,lastRewardsReceived});
     } catch (error) {
         res.status(404).json({ "message": "not found" });  
     }

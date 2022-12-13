@@ -16,7 +16,7 @@ function insertReward(req, res) {
         try {
             yield (0, rewardServices_1.insertOneReward)(req.body.senderId, req.body.idRewardedStudent, req.body.pointQty, req.body.sendDescription);
             yield (0, rewardServices_1.lessPointsToStudent)(req.body.senderId, req.body.pointQty);
-            res.redirect("/points?sentrewards=true");
+            res.redirect("/points?puntosEnviados=true&sentrewards=true");
         }
         catch (error) {
             console.log(error);

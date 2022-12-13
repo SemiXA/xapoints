@@ -23,20 +23,24 @@ function getStudentRewards(req, res) {
             const studentIdecoded = jsonwebtoken_1.default.decode(token, { json: true });
             const studentId = studentIdecoded === null || studentIdecoded === void 0 ? void 0 : studentIdecoded.id;
             const studentSentRewards = yield (0, rewardServices_js_1.findRewardsSentFromStudent)(studentId);
+            const studentSentRewardsSum = yield (0, rewardServices_js_1.findRewardsSumSentFromStudent)(studentId);
             const studentReceivedRewards = yield (0, rewardServices_js_1.findRewardsReceivedFromStudent)(studentId);
+            const studentRewarded = yield (0, rewardServices_js_1.findStudentsRewarded)(studentId);
             const showPointsFromStudent = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const getStudents = yield (0, studentServices_js_1.findAllStudents)();
-            const lastRewards = yield (0, rewardServices_js_1.findRewardsSortedByDate)();
             const studentLogged = yield (0, studentServices_js_1.findOneStudent)(studentId);
             const sentrewards = req.query.sentrewards;
+            const puntosEnviados = req.query.puntosEnviados;
             res.status(200).render("pages/points", {
                 studentSentRewards,
+                studentSentRewardsSum,
                 studentReceivedRewards,
                 showPointsFromStudent,
                 getStudents,
-                lastRewards,
                 studentLogged,
                 sentrewards,
+                studentRewarded,
+                puntosEnviados
             });
         }
         catch (error) {

@@ -2,14 +2,16 @@ import express from "express";
 import {
   findRewardsReceivedFromStudent,
   findRewardsSentFromStudent,
-  findRewardsSortedByDate,
+  findRewardsSentSortedByDate,
+  findRewardsSumSentFromStudent,
+  findStudentsRewarded,
 } from "../../model/services/rewardServices.js";
 import {
   findOneStudent,
   findAllStudents,
 } from "../../model/services/studentServices.js";
 import jsonwebtoken from "jsonwebtoken";
-import { getOneStudent } from "../student/getOneStudent.js";
+
 
 export async function getStudentRewards(
   req: express.Request,
@@ -21,26 +23,32 @@ export async function getStudentRewards(
     const studentId = studentIdecoded?.id;
 
     const studentSentRewards = await findRewardsSentFromStudent(studentId);
+    const studentSentRewardsSum = await findRewardsSumSentFromStudent(studentId)
     const studentReceivedRewards = await findRewardsReceivedFromStudent(
       studentId
     );
+    const studentRewarded = await findStudentsRewarded(studentId);
     const showPointsFromStudent = await findOneStudent(studentId);
     const getStudents = await findAllStudents();
-    const lastRewards = await findRewardsSortedByDate();
     const studentLogged = await findOneStudent(studentId);
     const sentrewards = req.query.sentrewards;
-
+    const puntosEnviados = req.query.puntosEnviados;
+    
+      
     res.status(200).render(
       "pages/points",
 
       {
         studentSentRewards,
+        studentSentRewardsSum,
         studentReceivedRewards,
         showPointsFromStudent,
         getStudents,
-        lastRewards,
         studentLogged,
         sentrewards,
+        studentRewarded,
+        puntosEnviados
+        
       }
     );
   } catch (error) {
