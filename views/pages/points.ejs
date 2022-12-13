@@ -10,40 +10,27 @@
 </head>
 
 <body>
-  <div id="menu">
-    <div class="menuFoot">
-      <a href="points"><img src="img/iconosMenu/mis-puntos-red.svg" alt="points"></a>
-      <p class="red">Mis puntos</p>
-    </div>
-    <div class="menuFoot">
-      <a href="ranking.html"><img src="img/iconosMenu/ranking-gray.svg" alt="ranking"></a>
-      <p>Ranking</p>
-    </div>
-    <div class="menuFoot">
-      <a href="#"><img src="img/iconosMenu/mi-perfil-gray.svg" alt="perfil"></a>
-      <p>Mi perfil</p>
-    </div>
-    <div class="menuFoot">
-      <a href="login.html"><img src="img/iconosMenu/logout-gray.svg" alt="exit"></a>
-      <p>Salir</p>
-    </div>
-  </div>
+  <%- include('../partials/menu') %>
   <div>
     <h1 class="center">MIS PUNTOS</h1>
     <hr />
     <div id="divPiechart">
       <div class="color">
         <div class="piechart1">
-          <div id="numberpie1"><%= showPointsFromStudent[0][0].activa_points_balance %> </div>
+          <div id="numberpie1">
+            <%= showPointsFromStudent.activa_points_balance %>
+          </div>
         </div>
         <p class="pieText">DISPONIBLES<br> ¡Listos para enviar!</p>
       </div>
       <div>
-        <!--<%- include('../partials/piechartreceived'); %> -->
         <div class="piechart2">
-          <div id="numberpie2"><%= studentReceivedRewards[0][0].points %></div>
+          <div id="numberpie2">
+            <%= studentSentRewardsSum.sumPoints %>
+          </div>
         </div>
-        <p class="pieText">TOTAL<br> <span id="sendText"> <a id="sentPoints" href="#">Enviados</a></span> | <span id="receibedText"> <a id="receivedPoints" href="#">Recibidos</a></span>
+        <p class="pieText">TOTAL<br> <span id="sendText"> <a id="sentPoints" href="#">Enviados</a></span> | <span
+            id="receivedText"> <a id="receivedPoints" href="#">Recibidos</a></span>
         </p>
       </div>
     </div>
@@ -53,22 +40,34 @@
     <hr />
     <div id="fondo">
       <p class="center">Alumnos Xarxatec Activa 2023</p>
-      <div class="search">
-        <img id="iconActiva" src="img/puntos-activa-logo.svg" alt="logoBuscarGente">
-        <select name="getStudents" id="alumnos" >
-            <% for(var i = 0; i < getStudents.length; i++) { %>
-              <option value='<%= getStudents[0][i].name %>'><%= getStudents[0][i].name %> <%= getStudents[0][i].first_surname %></option>
-            <% } %>
-        </select>
-      </div>
-      <div class="spanCenter">Descripción del envío</div>
-      <form action="#">
+      <form action="/sendReward" method="post">
+        <div class="search">
+
+          <img id="iconActiva" src="img/puntos-activa-logo.svg" alt="logoBuscarGente">
+
+          <select name="idRewardedStudent" id="alumnos">
+            <% for(var i=0; i < getStudents.length; i++) { %>
+              <% if(getStudents[i].id != studentLogged.id) { %>
+                <option value="<%= getStudents[i].id %>" id="<%= getStudents[i].id %>">
+                  <%= getStudents[i].name %>
+                    <%= getStudents[i].first_surname %>
+                </option>
+                <% } %>
+                    <% } %>
+          </select>
+        </div>
+        <div class="spanCenter">Descripción del envío</div>
         <div id="textContainerDescription">
-          <input id="sendDescription" type="text"></div>
+          <input id="sendDescription" name="sendDescription" type="text">
+        </div>
         <div class="spanCenter">¿cuánto envías?</div>
         <div id="numberContainerqty">
-          <input id="pointQty" type="number">
-          <button id="sendPoints">ENVIAR</button></div>
+          <input id="pointQty" name="pointQty" type="number">
+          <input type="hidden" name="senderId" value="<%= studentLogged.id %>">
+          <input type="hidden" name="userSender" value="<%= studentLogged.name %>">
+          <button type="submit" id="sendPoints">ENVIAR</button>
+
+        </div>
       </form>
     </div>
   </div>
@@ -76,74 +75,38 @@
     <h2 class="center">MI HISTORIAL</h2>
     <hr />
     <div class="btnGroup">
-      <button id="sendButton"><u>ENVIADOS</u></button>
-      <a href="mispuntosRecibidos.html">
-        <button id="receivedButton">RECIBIDOS</a></button>
+      <a href="points?puntosEnviados=true"><button id="sendButton"><u>ENVIADOS</u></button></a>
+      <a href="points?puntosEnviados=false"><button id="receivedButton"><u>RECIBIDOS</u></button></a>
     </div>
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>100</b></span> PUNTOS ENVIADOS
-        30/07/2023</div>
-      <p> Bieeen que hemos ganado el premio de no code. Sin tu cerebrito
-        esto no habría sido posible. Un abrazo! </p>
-      <p> de parte de <b>Madonna Giménez</b></p>
-    </div>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>20</b></span> PUNTOS ENVIADOS
-        30/09/2023</div>
-      <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu cerebrito
-      esto no habría sido posible. Un abrazo!<br>
-      <p>de parte de <b>Miguel Sueca</b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>30</b></span> PUNTOS ENVIADOS
-        30/11/2023</div>
-      <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu paciencia
-      esto no habría sido posible. Un abrazo!<br>
-      <p> de parte de <b>Pedro sanchez</b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>90</b></span> PUNTOS ENVIADOS
-        30/11/2023</div>
-      <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu mirada
-      esto no habría sido posible. Un abrazo!<br>
-      <p> de parte de <b>M. Rajoy </b>
-    </div>
-    </p>
-    <hr id="hrHistory" />
-    <div class="pAlign">
-      <div><span class="pointsRed"><b>60</b></span> PUNTOS ENVIADOS
-        30/11/2023</div>
-      <br>
-      Bieeen que hemos ganado el premio de no code. Sin tu cabeza
-      esto no habría sido posible. Un abrazo!<br>
-      <p> de parte de <b>Metallica</b>
-    </div>
-    </p>
+    <% if(puntosEnviados=="false"){ %>
+      <%- include('../partials/puntosRecibidos') %>
+      
+    <% } else{ %>
+      <%- include('../partials/puntosEnviados') %>
+      <% } %>
+    
+   
+  
     <br><br><br><br>
   </div>
   <script>
     const numpie = document.getElementById("numberpie2");
     const receivedPoints = document.getElementById("receivedPoints");
     const sentPoints = document.getElementById("sentPoints");
-    
-    
-    function receivedSentRewards (e){
-        if(e.target.innerText == "Recibidos") numpie.innerHTML = `<%= studentReceivedRewards[0][0].points %>`;
-        if(e.target.innerText == "Enviados") numpie.innerHTML = `<%= studentSentRewards[0][0].points %>`;
+
+
+    function receivedSentRewards(e) {
+      if (e.target.innerText == "Recibidos") numpie.innerHTML = `<%= studentReceivedRewards.points %>`;
+      if (e.target.innerText == "Enviados") numpie.innerHTML = `<%= studentSentRewardsSum.sumPoints %>`;
     }
-    
+
     receivedPoints.addEventListener("click", receivedSentRewards);
     sentPoints.addEventListener("click", receivedSentRewards);
-    </script>
-    
+  </script>
+  <% if (sentrewards==="true" ) { %>
+    <script>alert("Puntos Enviados")</script>
+    <% } %>
+
 </body>
 
 </html>

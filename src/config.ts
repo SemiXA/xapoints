@@ -1,12 +1,16 @@
 import mysql from "mysql2";
+import path from 'path';
+import * as dotenv from 'dotenv';
 
-const PORT=3000;
+dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const connectionData = {
-  host: "localhost",
-  user: "root",
-  password: "12345",
-  database: "xa_points_test"
-};
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PWD,
+  database: process.env.DB_NAME
+}
+
 const db = mysql.createConnection(connectionData);
-export {PORT, db, connectionData};
+
+export {db, connectionData};

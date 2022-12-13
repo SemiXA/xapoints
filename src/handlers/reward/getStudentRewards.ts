@@ -1,30 +1,59 @@
-import {Reward} from "../../model/types/reward";
 import express from "express";
-import { findRewardsReceivedFromStudent, findRewardsSentFromStudent} from "../../model/services/rewardServices";
-import { findOneStudent, findAllStudents} from "../../model/services/studentServices";
+import {
+  findRewardsReceivedFromStudent,
+  findRewardsSentFromStudent,
+  findRewardsSentSortedByDate,
+  findRewardsSumSentFromStudent,
+  findStudentsRewarded,
+} from "../../model/services/rewardServices.js";
+import {
+  findOneStudent,
+  findAllStudents,
+} from "../../model/services/studentServices.js";
+import jsonwebtoken from "jsonwebtoken";
 
 
+export async function getStudentRewards(
+  req: express.Request,
+  res: express.Response
+) {
+  try {
+    const token = req.session.token as string;
+    const studentIdecoded = jsonwebtoken.decode(token, { json: true });
+    const studentId = studentIdecoded?.id;
 
-export async function getStudentRewards(req: express.Request, res: express.Response){
-    try{
-    const studentId = "1";
     const studentSentRewards = await findRewardsSentFromStudent(studentId);
-    const studentReceivedRewards = await findRewardsReceivedFromStudent(studentId);
-    const showPointsFromStudent = await  findOneStudent(studentId);
+    const studentSentRewardsSum = await findRewardsSumSentFromStudent(studentId)
+    const studentReceivedRewards = await findRewardsReceivedFromStudent(
+      studentId
+    );
+    const studentRewarded = await findStudentsRewarded(studentId);
+    const showPointsFromStudent = await findOneStudent(studentId);
     const getStudents = await findAllStudents();
+    const studentLogged = await findOneStudent(studentId);
+    const sentrewards = req.query.sentrewards;
+    const puntosEnviados = req.query.puntosEnviados;
     
-    res.status(200).render("pages/points",
       
-        {studentSentRewards,
+    res.status(200).render(
+      "pages/points",
+
+      {
+        studentSentRewards,
+        studentSentRewardsSum,
         studentReceivedRewards,
         showPointsFromStudent,
-        getStudents
-        })
+        getStudents,
+        studentLogged,
+        sentrewards,
+        studentRewarded,
+        puntosEnviados
         
-        
-    } catch (error) {
-        res.status(404).json({ "message": "not found" });
-    }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+
+    res.status(404).json({ message: "not found" });
+  }
 }
-
-

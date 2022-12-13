@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/styleranking.css">
+    <title>Ranking Puntos Xarxatec Activa</title>
+</head>
+
+<body>
+    <%- include('../partials/menu') %>
+    <div class="column">
+        <div id="rankingColumn">
+            <h1>RANKING</h1>
+            <hr id="rankingTitle" />
+            
+                <% for(var i=0; i < 5; i++) { %>
+                   <% if(i < 5) { %>
+                    <div class="rankingList1">
+                        <p class="rankingPositionPodium item1"><%= i +1 %></p>
+                        <p class="item2"><%= ranking[i].name %></p>
+                        <p class="item3"><em class="red"></em></p>
+                        <p class="item4"><span id="pointSize"><b><%= ranking[i].points %></b></span> PUNTOS ACTIVA</p>
+                    </div>
+                    <hr id="rankingHr" />
+                    <% } %>
+                    <% } %>
+            
+        </div>
+        <div>
+            <div id="rankingCup">
+                <div class="center">
+                    <img id="cup" src="img/iconosMenu/ranking-blue.svg" alt="una copa"></div>
+                        <div id="myPosition">TU PUESTO ACTUAL <b id="myPositionNumber">
+                            <% for(var i=0; i < ranking.length; i++) { %>
+                                <% if(studentLogged.id == ranking[i].id) { %>
+                                    <%= i +1 %>
+                                <% } %>
+                            <% } %>
+                                
+                        </b> <cite id="myTittle"> LLEGANDO A LA CIMA</cite>
+                        </div>
+            </div>
+        </div>
+    </div>
+    <div id="socialColumns">
+        <h2 class="center">HISTORIAL SOCIAL</h2>
+        <hr id="rankingHr" />
+        <% for(var i=0; i < lastRewardsSent.length; i++) { %>
+                <div class="pAlign">
+                    <div id="headerPoints"><span class="pointsRed"><b><%= lastRewardsSent[i].xp_points %></b> PuntosActiva </span>Para
+                        <b><%= lastRewardsReceived[i].name %></b></div>
+                    <br>
+                    <%= lastRewardsSent[i].description %><br>
+                    <p>de parte de <b><%= lastRewardsSent[i].name %></b>
+                </div>
+                <hr id="rankingHr" />
+                <% } %>
+        <br><br><br>
+    </div>
+</body>
+
+</html>

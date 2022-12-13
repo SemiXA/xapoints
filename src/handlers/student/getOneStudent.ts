@@ -4,7 +4,7 @@ import {findOneStudent} from '../../model/services/studentServices';
 
 async function getOneStudent(req: express.Request, res: express.Response){
      try {
-        const studentId = "1;"
+        const studentId = "1"
         const studentFound = await findOneStudent(studentId);
         return res.status(200).send(studentFound)
         {
