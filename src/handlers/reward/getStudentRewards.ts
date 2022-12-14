@@ -21,7 +21,7 @@ export async function getStudentRewards(
     const token = req.session.token as string;
     const studentIdecoded = jsonwebtoken.decode(token, { json: true });
     const studentId = studentIdecoded?.id;
-
+    
     const studentSentRewards = await findRewardsSentFromStudent(studentId);
     const studentSentRewardsSum = await findRewardsSumSentFromStudent(studentId)
     const studentReceivedRewards = await findRewardsReceivedFromStudent(
