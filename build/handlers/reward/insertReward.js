@@ -11,12 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.insertReward = void 0;
 const rewardServices_1 = require("../../model/services/rewardServices");
+const studentServices_1 = require("../../model/services/studentServices");
 function insertReward(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield (0, rewardServices_1.insertOneReward)(req.body.senderId, req.body.idRewardedStudent, req.body.pointQty, req.body.sendDescription);
-            yield (0, rewardServices_1.lessPointsToStudent)(req.body.senderId, req.body.pointQty);
-            res.redirect("/points?puntosEnviados=true&sentrewards=true");
+            const studentLogged = yield (0, studentServices_1.findOneStudent)(req.body.senderId);
+            if (studentLogged.activa_points_balance >= req.body.pointQty && req.body.pointQty > 0) {
+                yield (0, rewardServices_1.insertOneReward)(req.body.senderId, req.body.idRewardedStudent, req.body.pointQty, req.body.sendDescription);
+                yield (0, rewardServices_1.lessPointsToStudent)(req.body.senderId, req.body.pointQty);
+                res.redirect("/points?puntosEnviados=true&sentrewards=true");
+            }
+            else {
+                res.redirect("/points?puntosEnviados=true&sentrewards=false");
+            }
         }
         catch (error) {
             console.log(error);
